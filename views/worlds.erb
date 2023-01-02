@@ -1,0 +1,13 @@
+<ul id="worlds">
+  <% alphabetize(@worlds) do |world| %>
+    <li>
+      <a href="/worlds/<%= world[:id] %>">
+        <h2><%= world[:name] %></h2>
+      </a>
+    </li>
+  <% end %>
+</ul>
+
+<% content_for :header_links do %>
+  <a href="/worlds/new">New World</a>
+<% end %>

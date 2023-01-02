@@ -1,0 +1,20 @@
+<h1><%= @world[:name] %></h1>
+<p><%= @world[:description] %></p>
+
+<ul>
+  <li>
+    <a href="/worlds/<%= @world[:id] %>/characters">
+      <h2>Characters</h2>
+    </a>
+  </li>
+  <li>
+    <a href="/worlds/<%= @world[:id] %>/places">
+      <h2>Places</h2>
+    </a>
+  </li>
+  <li>
+    <a href="/worlds/<%= @world[:id] %>/events">
+      <h2>Events</h2>
+    </a>
+  </li>
+</ul>

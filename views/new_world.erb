@@ -1,0 +1,25 @@
+<form action="/worlds/new" method="post">
+  <div class="new-line">
+    <label for="name">Name:
+      <input type="text" id="name" name="name" required>
+    </label>
+  </div>
+  <div class="new-line">
+    <label for="date_system">Date System (Default AD):
+      <input
+      type="text"
+      id="date_system"
+      name="date_system"
+      maxlength="8"
+      value="AD">
+    </label>
+  </div>
+  <div class="new-line">
+    <label for="description">Description
+    </label>
+  </div>
+  <div class="new-line">
+    <textarea id="description" name="description" rows="15" cols="100"></textarea>
+  </div>
+  <input type="submit" value="Submit">
+</form>
