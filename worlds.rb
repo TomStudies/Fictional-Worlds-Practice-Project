@@ -1,6 +1,8 @@
 require "sinatra"
 require "sinatra/content_for"
 require "tilt/erubis"
+require "sinatra/reloader"
+also_reload "worlds_db"
 
 require_relative "worlds_db"
 
@@ -8,11 +10,6 @@ configure do
   enable :sessions
   set :session_secret, 'b9ef0726ff440cf98862e243f7d4f5e5c67144ef2d4222c68885eeed89381232'
   set :erb, :escape_html => true
-end
-
-configure(:development) do # For code to only be executed during dev
-  require "sinatra/reloader"
-  also_reload "worlds_db"
 end
 
 helpers do
@@ -28,7 +25,7 @@ end
 
 # Create database interaction object
 before do
-  @storage = WorldsDatabase.new
+  @storage = WorldsDatabase.new(logger)
 end
 
 after do
@@ -65,20 +62,25 @@ end
 
 # View a world
 get "/worlds/:id" do
-  @id = params[:id].to_i
-  @world = @storage.world_by_id(@id)[0]
+  id = params[:id].to_i
+  @world = @storage.world_by_id(id)[0]
   erb :world, layout: :layout
 end
 
 # View a world's character index
 get "/worlds/:id/characters" do
-
+  world_id = params[:id].to_i
+  @characters = @storage.characters_by_world_id(world_id)
+  logger.info "#{@characters}"
+  redirect "/worlds"
 end
 # View a world's place index
 get "/worlds/:id/places" do
-
+  world_id = params[:id].to_i
+  @places = @storage.places_by_world_id(world_id)
 end
 # View a world's events index
 get "/worlds/:id/events" do
-
+  world_id = params[:id].to_i
+  @events = storage.events_by_world_id(world_id)
 end
