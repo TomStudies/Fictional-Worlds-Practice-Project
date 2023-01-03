@@ -1,0 +1,12 @@
+header > h1 > a {
+  color: black;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+div.new-line {
+  display: table-row;
+}

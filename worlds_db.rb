@@ -33,6 +33,14 @@ class WorldsDatabase
     end
   end
 
+  # Retrieve a character based on its id
+  def character_by_id(id)
+    result = query("SELECT * FROM characters WHERE id = $1", id)
+    result.map do |tuple|
+      tuple_to_character_hash(tuple)
+    end
+  end
+
   # Retrieve all characters from a world based on world id
   def characters_by_world_id(id)
     result = query("SELECT * FROM characters WHERE world_id = $1", id)
@@ -52,6 +60,20 @@ class WorldsDatabase
     result = query("SELECT * FROM events WHERE world_id = $1", id)
     result.map do |tuple|
       tuple_to_event_hash(tuple)
+    end
+  end
+
+  # Retrieve all events a character was involved in from character id
+  def character_events(char_id)
+    sql = <<~SQL
+      SELECT * FROM events 
+      JOIN characters_events 
+      ON events.id = characters_events.event_id 
+      WHERE characters_events.character_id = $1
+    SQL
+    result = query(sql, char_id)
+    result.each do |tuple|
+      @logger.info "#{tuple}"
     end
   end
 

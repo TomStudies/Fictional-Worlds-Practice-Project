@@ -1,0 +1,25 @@
+<h2><%= @character[:name] %></h2>
+<% if @character[:birth_year] || @character[:birth_day] || @character[:birth_month] %>
+  <p>
+    Born
+    <% if @character[:birth_month] %>
+      <%= @character[:birth_month] %>/
+    <% else %>
+      ??/
+    <% end %>
+    <% if @character[:birth_day] %>
+      <%= @character[:birth_day] %>/
+    <% else %>
+      ??/
+    <% end %>
+    <% if @character[:birth_year] %>
+      <%= @character[:birth_year] %>
+    <% else %>
+      ????
+    <% end %>
+  </p>
+<% else %>
+  <p>Date of birth unknown</p>
+<% end %>
+<p><%= @character[:description] %>
+<h2> Timeline of Events </h2>

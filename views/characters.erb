@@ -1,0 +1,10 @@
+<ul id="characters">
+  <% alphabetize(@characters) do |character| %>
+    <li>
+      <a href="/worlds/<%= @world_id %>/characters/<%= character[:id] %>">
+        <h2><%= character[:name] %></h2>
+      </a>
+      <p><%= character[:description] %></p>
+    </li>
+  <% end %>
+</ul>

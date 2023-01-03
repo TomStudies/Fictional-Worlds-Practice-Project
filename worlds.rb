@@ -69,18 +69,28 @@ end
 
 # View a world's character index
 get "/worlds/:id/characters" do
-  world_id = params[:id].to_i
-  @characters = @storage.characters_by_world_id(world_id)
-  logger.info "#{@characters}"
-  redirect "/worlds"
+  @world_id = params[:id].to_i
+  @characters = @storage.characters_by_world_id(@world_id)
+  erb :characters, layout: :layout
 end
+
+# View a page for a specific character
+get "/worlds/:world_id/characters/:char_id" do
+  @world_id = params[:world_id].to_i
+  @char_id = params[:char_id].to_i
+  @character = @storage.character_by_id(@char_id)[0]
+  @events = @storage.character_events(@char_id)
+  erb :character, layout: :layout
+end
+
 # View a world's place index
 get "/worlds/:id/places" do
-  world_id = params[:id].to_i
-  @places = @storage.places_by_world_id(world_id)
+  @world_id = params[:id].to_i
+  @places = @storage.places_by_world_id(@world_id)
 end
+
 # View a world's events index
 get "/worlds/:id/events" do
-  world_id = params[:id].to_i
-  @events = storage.events_by_world_id(world_id)
+  @world_id = params[:id].to_i
+  @events = @storage.events_by_world_id(@world_id)
 end
